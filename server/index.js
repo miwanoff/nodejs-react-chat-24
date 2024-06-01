@@ -28,6 +28,10 @@ io.on("connection", (socket) => {
     console.log(`User with ID: ${socket.id} joined room: ${data}`);
   });
 
+  socket.on("send_message", (data) => {
+    console.log(data);
+  });
+
 
 });
 
