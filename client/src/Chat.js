@@ -1,8 +1,15 @@
-import React from "react";
-import { useState } from "react";
+// import React from "react";
+// import { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Chat = ({ socket, username, room }) => {
   const [currentMessage, setCurrentMessage] = useState("");
+
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      console.log(data);
+    });
+  }, [socket]);
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
