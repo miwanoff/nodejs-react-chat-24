@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 const Chat = ({ socket, username, room }) => {
   const [currentMessage, setCurrentMessage] = useState("");
 
-  useEffect(() => {
+    useEffect(() => {
     socket.on("receive_message", (data) => {
       console.log(data);
     });
@@ -29,7 +29,7 @@ const Chat = ({ socket, username, room }) => {
   };
 
   return (
-    <div>
+    <div className="chat-window">
       <div className="chat-header">
         <p>Chat</p>
       </div>
