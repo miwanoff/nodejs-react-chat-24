@@ -1,16 +1,22 @@
 // import React from "react";
 // import { useState } from "react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 const Chat = ({ socket, username, room }) => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
+  const effectRan = useRef(false);
 
   useEffect(() => {
-    socket.on("receive_message", (data) => {
-      console.log(data);
-      setMessageList((list) => [...list, data]);
-    });
+    if (effectRan.current === false) {
+      socket.on("receive_message", (data) => {
+        console.log(data);
+        setMessageList((list) => [...list, data]);
+      });
+      return () => {
+        effectRan.current = true;
+      };
+    }
   }, [socket]);
 
   const sendMessage = async () => {
