@@ -7,6 +7,8 @@ const Chat = ({ socket, username, room }) => {
   const [messageList, setMessageList] = useState([]);
   const effectRan = useRef(false);
 
+
+
   useEffect(() => {
     if (effectRan.current === false) {
       socket.on("receive_message", (data) => {
@@ -48,6 +50,7 @@ const Chat = ({ socket, username, room }) => {
             <div
               className="message"
               id={username === messageContent.author ? "you" : "other"}
+              key={makeid(6)}
             >
               <div>
                 <div className="message-content">
@@ -80,3 +83,14 @@ const Chat = ({ socket, username, room }) => {
 };
 
 export default Chat;
+
+function makeid(length) {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
